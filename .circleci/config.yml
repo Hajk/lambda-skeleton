@@ -1,6 +1,6 @@
 jobs:
   build_app:
-    executor: aws-serverless/default
+    executor: sam/default
     steps:
       - checkout
       - sam/install
