@@ -1,4 +1,10 @@
 jobs:
+  build_app:
+    executor: aws-serverless/default
+    steps:
+      - checkout
+      - sam/install
+      - run: sam build
   test_my_api:
     executor: sam/default
     steps:
@@ -9,6 +15,7 @@ version: 2.1
 workflows:
   test_and_deploy:
     jobs:
+      - build_app
       - sam/deploy:
           name: deploy-staging
           stack-name: staging-stack
