@@ -4,7 +4,7 @@ jobs:
     steps:
       - run: echo "Run your tests here"
 orbs:
-  sam: circleci/aws-sam-serverless@x.y.z
+  sam: circleci/aws-sam-serverless@1.0.1
 version: 2.1
 workflows:
   test_and_deploy:
