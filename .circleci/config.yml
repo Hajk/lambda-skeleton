@@ -12,6 +12,7 @@ workflows:
       - sam/deploy:
           name: deploy-staging
           stack-name: staging-stack
+          s3-bucket: lambda-skeleton-bucket
           template: ./node.yml
       - test_my_api:
           requires:
@@ -21,6 +22,7 @@ workflows:
           requires:
             - test_my_api
           stack-name: production-stack
+          s3-bucket: lambda-skeleton-bucket
           template: ./node.yml
 
 
