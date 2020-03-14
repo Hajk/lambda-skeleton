@@ -1,17 +1,26 @@
-version: 2.1
-orbs:
-  node: circleci/node@1.1.6
 jobs:
-  build-and-test:
-    executor:
-      name: node/default
+  test_my_api:
+    executor: sam/default
     steps:
-      - checkout
-      - node/with-cache:
-          steps:
-            - run: npm install
-#            - run: npm test
+      - run: echo "Run your tests here"
+orbs:
+  sam: circleci/aws-sam-serverless@x.y.z
+version: 2.1
 workflows:
-  build-and-test:
+  test_and_deploy:
     jobs:
-      - build-and-test
+      - sam/deploy:
+          name: deploy-staging
+          stack-name: staging-stack
+          template: ./node.yml
+      - test_my_api:
+          requires:
+            - deploy-staging
+      - sam/deploy:
+          name: deploy-production
+          requires:
+            - test_my_api
+          stack-name: production-stack
+          template: ./node.yml
+
+
